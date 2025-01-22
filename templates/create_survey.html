@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Survey</title>
+    <title>Create Poll</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,7 +17,7 @@
             max-width: 500px;
             margin: 20px auto;
             padding: 20px;
-            border: 1px solid #444;
+            border: 1px solid aqua;
             background-color: #111;
             border-radius: 5px;
         }
@@ -41,15 +41,16 @@
     </style>
 </head>
 <body>
-    <h1>Create a New Survey</h1>
-    <form action="/create_survey" method="POST">
-        <label for="title">Survey Title:</label>
-        <input type="text" id="title" name="title" placeholder="Enter survey title" required>
+    <h1>Create a New Poll</h1>
+    <form action="/create_poll" method="POST">
+        <label for="poll-title">Poll Title:</label>
+        <input type="text" id="poll-title" name="poll_title" placeholder="Enter poll title" required>
 
-        <label for="questions">Questions:</label>
-        <textarea id="questions" name="questions" rows="5" placeholder="Enter questions separated by commas" required></textarea>
+        <label for="poll-options">Poll Options:</label>
+        <textarea id="poll-options" name="poll_options" rows="5" placeholder="Enter poll options separated by commas" required></textarea>
 
-        <button type="submit">Create Survey</button>
+        <button type="submit">Create Poll</button>
     </form>
 </body>
 </html>
+

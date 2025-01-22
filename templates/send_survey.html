@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Send Survey</title>
+    <title>Vote</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,11 +17,11 @@
             max-width: 500px;
             margin: 20px auto;
             padding: 20px;
-            border: 1px solid #444;
+            border: 1px solid aqua;
             background-color: #111;
             border-radius: 5px;
         }
-        label, textarea, input, button {
+        label, input[type="radio"], button {
             display: block;
             width: 100%;
             margin-bottom: 10px;
@@ -30,6 +30,10 @@
             border: 1px solid #444;
             border-radius: 3px;
             padding: 8px;
+        }
+        input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
         }
         button {
             background-color: #444;
@@ -41,15 +45,33 @@
     </style>
 </head>
 <body>
-    <h1>Send Survey</h1>
-    <form action="/send_survey" method="POST">
-        <label for="survey_id">Survey ID:</label>
-        <input type="number" id="survey_id" name="survey_id" placeholder="Enter survey ID" required>
+    <h1>Vote for Your Favorite Option</h1>
+    <form action="/submit_vote" method="POST">
+        <label for="poll_id">Poll ID:</label>
+        <input type="number" id="poll_id" name="poll_id" placeholder="Enter poll ID" required>
 
-        <label for="phone_numbers">Phone Numbers:</label>
-        <textarea id="phone_numbers" name="phone_numbers" rows="5" placeholder="Enter phone numbers separated by commas" required></textarea>
+        <p>Select an option:</p>
 
-        <button type="submit">Send Survey</button>
+        <!-- Replace with dynamic poll options fetched from your server -->
+        <div>
+            <input type="radio" id="option1" name="vote_option" value="Option 1" required>
+            <label for="option1">Option 1</label>
+        </div>
+        <div>
+            <input type="radio" id="option2" name="vote_option" value="Option 2" required>
+            <label for="option2">Option 2</label>
+        </div>
+        <div>
+            <input type="radio" id="option3" name="vote_option" value="Option 3" required>
+            <label for="option3">Option 3</label>
+        </div>
+        <div>
+            <input type="radio" id="option4" name="vote_option" value="Option 4" required>
+            <label for="option4">Option 4</label>
+        </div>
+        <!-- Dynamic poll options end -->
+
+        <button type="submit">Submit Vote</button>
     </form>
 </body>
 </html>
