@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Responses</title>
+</head>
+<body>
+    <h1>Survey Responses</h1>
+    <form action="/view_responses" method="GET">
+        <label for="survey_id">Survey ID:</label><br>
+        <input type="number" id="survey_id" name="survey_id" required><br><br>
+        <button type="submit">View Responses</button>
+    </form>
+    <div id="responses">
+        {% if responses %}
+        <h2>Responses:</h2>
+        <ul>
+            {% for response in responses %}
+            <li>{{ response['phone_number'] }}: {{ response['response'] }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</body>
+</html>
