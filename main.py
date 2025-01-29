@@ -83,4 +83,4 @@ def send_sms(phone_number, message):
     serial_port.flush()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host=config.HOST, port=config.PORT,debug=True)
