@@ -5,19 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SMS Voting System</title>
     <style>
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #000;
             color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
+
+        /* Header Styles */
         header {
             text-align: center;
             padding: 20px;
             background-color: aqua;
             border-bottom: 2px solid #444;
         }
+
+        /* Navigation Styles */
         nav ul {
             list-style-type: none;
             padding: 0;
@@ -37,15 +45,36 @@
         nav ul li a:hover {
             text-decoration: underline;
         }
+
+        /* Main Content Styles */
         main {
             text-align: center;
             padding: 50px;
+            flex: 1;
         }
+
+        /* Footer Styles */
         footer {
             text-align: center;
             padding: 10px;
             background-color: #111;
             border-top: 2px solid aqua;
+            margin-top: auto;
+        }
+
+        /* Message Styles */
+        .message {
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .error {
+            background-color: #ff4444;
+            color: #fff;
+        }
+        .info {
+            background-color: #333;
+            color: #fff;
         }
     </style>
 </head>
@@ -55,17 +84,31 @@
     </header>
     <nav>
         <ul>
-            <li><a href="/create_survey">Create poll</a></li>
-            <li><a href="/send_survey">Vote</a></li>
-            <li><a href="/view_responses">View Responses</a></li>
+            <li><a href="/create_poll">Create poll</a></li>
+            <li><a href="/submit_vote">Vote</a></li>
+            <li><a href="/view_responses">View Results</a></li>
         </ul>
     </nav>
     <main>
         <h2>Welcome!</h2>
         <p>Create and manage SMS-based voting with ease.</p>
+
+        <!-- Display SMS Voting Instructions -->
+        <div class="message info">
+            <h3>SMS Voting Instructions</h3>
+            <p>{{ sms_instructions }}</p>
+        </div>
+
+        <!-- Display Error Message if Serial Port is Unavailable -->
+        {% if error_message %}
+            <div class="message error">
+                <h3>Error</h3>
+                <p>{{ error_message }}</p>
+            </div>
+        {% endif %}
     </main>
     <footer>
-        <p>&copy; 2025 SMS voting System</p>
+        <p>&copy; 2025 SMS Voting System</p>
     </footer>
 </body>
 </html>

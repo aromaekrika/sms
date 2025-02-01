@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: aqua;
+            border-bottom: 2px solid #444;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            background-color: #222;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            text-align: center;
+            padding: 50px;
+            flex: 1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #111;
+            border-top: 2px solid aqua;
+            margin-top: auto;
+        }
+
+        h1, p {
+            text-align: center;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid aqua;
+            background-color: #111;
+            border-radius: 5px;
+        }
+
+        label, select, input[type="radio"], button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            color: #fff;
+            background-color: #222;
+            border: 1px solid #444;
+            border-radius: 3px;
+            padding: 8px;
+        }
+
+        input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #444;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #666;
+        }
+
+        .message {
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .error {
+            background-color: #ff4444;
+            color: #fff;
+        }
+
+        .success {
+            background-color: #00C851;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Vote for Your Favorite Option</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/create_poll">Create poll</a></li>
+            <li><a href="/submit_vote">Vote</a></li>
+            <li><a href="/view_responses">View Results</a></li>
+        </ul>
+    </nav>
+    <main>
+        {% if error %}
+            <div class="message error">{{ error }}</div>
+        {% endif %}
+        {% if message %}
+            <div class="message success">{{ message }}</div>
+        {% endif %}
+
+        <form action="/submit_vote" method="POST">
+            <label for="poll_title">Select Poll:</label>
+            <select id="poll_title" name="poll_id" required>
+                <option value="" disabled selected>Select a poll</option>
+                {% if poll_titles %}
+                    {% for title in poll_titles %}
+                        {% for key, value in title.items() %}
+                            <option value='{{ value }}'>{{ key }}</option>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+            </select>
+
+            <p>Select an option:</p>
+            <div id="poll_options_container">
+                <!-- Poll options will be dynamically inserted here -->
+            </div>
+
+            <label for="phone_number">Your Phone Number:</label>
+            <input type="text" id="phone_number" name="phone_number" placeholder="Enter your phone number" required>
+
+            <button type="submit">Submit Vote</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2025 SMS Voting System</p>
+    </footer>
+
+    <script>
+        // Embed poll_options data from the backend into JavaScript
+        const pollOptionsData = {{ poll_options | tojson | safe if poll_options else {} }};
+
+        // Get references to the poll title dropdown and poll options container
+        const pollTitleSelect = document.getElementById('poll_title');
+        const pollOptionsContainer = document.getElementById('poll_options_container');
+
+        // Function to generate poll options
+        function generatePollOptions(pollId) {
+            // Clear existing options
+            pollOptionsContainer.innerHTML = '';
+
+            // Get the options for the selected poll
+            const options = pollOptionsData[pollId] || [];
+
+            // Create radio buttons for each option
+            options.forEach((option, index) => {
+                const optionId = `option${index + 1}`;
+
+                // Create a div to hold the radio button and label
+                const optionDiv = document.createElement('div');
+
+                // Create the radio button
+                const radioInput = document.createElement('input');
+                radioInput.type = 'radio';
+                radioInput.id = optionId;
+                radioInput.name = 'vote_option';
+                radioInput.value = option;
+                radioInput.required = true;
+
+                // Create the label
+                const label = document.createElement('label');
+                label.htmlFor = optionId;
+                label.textContent = option;
+
+                // Append the radio button and label to the div
+                optionDiv.appendChild(radioInput);
+                optionDiv.appendChild(label);
+
+                // Append the div to the poll options container
+                pollOptionsContainer.appendChild(optionDiv);
+            });
+        }
+
+        // Add an event listener to the poll title dropdown
+        pollTitleSelect.addEventListener('change', (event) => {
+            const selectedPollId = event.target.value;
+            generatePollOptions(selectedPollId);
+        });
+
+        // Initialize poll options if a poll is already selected
+        const initialPollId = pollTitleSelect.value;
+        if (initialPollId) {
+            generatePollOptions(initialPollId);
+        }
+    </script>
+</body>
+</html>

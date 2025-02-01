@@ -1,6 +1,6 @@
 CREATE TABLE surveys (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL
+    title TEXT NOT NULL UNIQUE
 );
 
 CREATE TABLE questions (
