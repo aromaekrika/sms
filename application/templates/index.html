@@ -22,7 +22,8 @@
             text-align: center;
             padding: 20px;
             background-color: aqua;
-            border-bottom: 2px solid #444;
+            border-bottom: 2px solid black;
+            color:#fff;
         }
 
         /* Navigation Styles */
@@ -31,7 +32,7 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            background-color: #222;
+            background-color: navy;
             margin: 0;
         }
         nav ul li {
@@ -44,22 +45,31 @@
         }
         nav ul li a:hover {
             text-decoration: underline;
+            color:aqua;
         }
 
         /* Main Content Styles */
         main {
             text-align: center;
-            padding: 50px;
+            padding: 0px;
             flex: 1;
+        }
+        .bac{
+            
+            background: fixed;
+            color:white;
+            
+            
         }
 
         /* Footer Styles */
         footer {
             text-align: center;
             padding: 10px;
-            background-color: #111;
+            background-color: navy;
             border-top: 2px solid aqua;
             margin-top: auto;
+            color: #fff;
         }
 
         /* Message Styles */
@@ -73,7 +83,7 @@
             color: #fff;
         }
         .info {
-            background-color: #333;
+            background-color: black;
             color: #fff;
         }
     </style>
@@ -89,9 +99,17 @@
             <li><a href="/view_responses">View Results</a></li>
         </ul>
     </nav>
+    <br>
+    <br>
     <main>
-        <h2>Welcome!</h2>
+        <h2 class="bac">Welcome!</h2>
         <p>Create and manage SMS-based voting with ease.</p>
+        <br>
+        <br>
+        <h2 class="bac">About this project</h2>
+        <p>This main goal of this project is to create polls that are easily done with just an SMS  </p>
+        <br>
+        <br>
 
         <!-- Display SMS Voting Instructions -->
         <div class="message info">
